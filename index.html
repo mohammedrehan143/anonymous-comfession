@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Confession</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                    <i class="fas fa-mask"></i>
+                    <span>Anonymous Confession</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#confessions" class="nav-link">Confessions</a>
+                <a href="new-confession.html" class="nav-link">New Confession</a>
+                <a href="#track" class="nav-link">Track</a>
+            </div>
+            <div class="nav-auth">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Share Your Truth Anonymously</h1>
+            <p>Express yourself without fear. Your identity remains completely anonymous.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">1,234</span>
+                    <span class="stat-label">Confessions Shared</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">567</span>
+                    <span class="stat-label">Lives Touched</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Anonymous</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Sections -->
+    <main class="main-content">
+        <!-- Section 1: Anonymous Confessions -->
+        <section id="confessions" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-eye"></i>
+                    Anonymous Confessions
+                </h2>
+                <p class="section-subtitle">Read confessions approved by our admin team</p>
+                
+                <div class="confession-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="recent">Recent</button>
+                    <button class="filter-btn" data-filter="popular">Popular</button>
+                </div>
+
+                <div class="confessions-grid" id="confessionsGrid">
+                    <!-- Confessions will be loaded here -->
+                </div>
+
+                <div class="load-more">
+                    <button class="btn btn-secondary" id="loadMoreBtn">Load More Confessions</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: New Confession -->
+        <section id="new-confession" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-pen"></i>
+                    Share Your Confession
+                </h2>
+                <p class="section-subtitle">Your identity will remain completely anonymous</p>
+
+                <div class="new-confession-card">
+                    <div class="confession-card-content">
+                        <div class="confession-icon">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <h3>Submit Your Truth</h3>
+                        <p>Share your confession anonymously with our community. Choose from different priority levels to get your confession reviewed faster.</p>
+                        
+                        <div class="priority-preview">
+                            <div class="priority-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Free Submission</span>
+                            </div>
+                            <div class="priority-item">
+                                <i class="fas fa-star"></i>
+                                <span>Mid Priority - $2.99</span>
+                            </div>
+                            <div class="priority-item">
+                                <i class="fas fa-crown"></i>
+                                <span>High Priority - $9.99</span>
+                            </div>
+                        </div>
+
+                        <a href="new-confession.html" class="btn btn-primary confession-btn">
+                            <i class="fas fa-pen"></i>
+                            Start Your Confession
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Network Analyzer -->
+        <section id="network-analyzer" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-network-wired"></i>
+                    Network Analyzer
+                </h2>
+                <p class="section-subtitle">Coming Soon - Advanced analytics and insights</p>
+                
+                <div class="analyzer-placeholder">
+                    <div class="analyzer-content">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Network Analyzer</h3>
+                        <p>This feature is currently under development. Stay tuned for advanced analytics and network insights.</p>
+                        <div class="coming-soon">
+                            <span>Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Track Confession -->
+        <section id="track" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-search"></i>
+                    Track Your Confession
+                </h2>
+                <p class="section-subtitle">Enter your 10-digit passkey to check your confession status</p>
+
+                <div class="track-form-container">
+                    <form id="trackForm" class="track-form">
+                        <div class="form-group">
+                            <label for="passkey">Confession Passkey</label>
+                            <div class="passkey-input">
+                                <input type="text" id="passkey" placeholder="Enter your 10-digit passkey" maxlength="10" pattern="[0-9]{10}" required>
+                                <button type="button" class="passkey-help" title="Your passkey was provided when you submitted your confession">
+                                    <i class="fas fa-question-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                            Track Confession
+                        </button>
+                    </form>
+
+                    <div id="trackResult" class="track-result" style="display: none;">
+                        <!-- Track results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Confession History -->
+        <section id="user-history" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-history"></i>
+                    Your Confession History
+                </h2>
+                <p class="section-subtitle">View all your submitted confessions</p>
+
+                <div class="history-container">
+                    <div class="history-actions">
+                        <button class="btn btn-secondary" id="addPasskeyBtn">
+                            <i class="fas fa-plus"></i>
+                            Add Passkey to Track
+                        </button>
+                    </div>
+
+                    <div id="userConfessions" class="user-confessions">
+                        <!-- User confessions will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Payment</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-info">
+                    <div class="payment-summary">
+                        <h4>Payment Summary</h4>
+                        <div class="payment-item">
+                            <span>Confession Priority:</span>
+                            <span id="paymentPriority"></span>
+                        </div>
+                        <div class="payment-item">
+                            <span>Amount:</span>
+                            <span id="paymentAmount"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h4>Payment Method</h4>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="card" checked>
+                                <span class="payment-option-content">
+                                    <i class="fas fa-credit-card"></i>
+                                    Credit/Debit Card
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="paypal">
+                                <span class="payment-option-content">
+                                    <i class="fab fa-paypal"></i>
+                                    PayPal
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="processPayment">Process Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Confession Submitted Successfully!</h3>
+            <p>Your confession has been submitted and is under review.</p>
+            <div class="passkey-display">
+                <label>Your Confession Passkey:</label>
+                <div class="passkey-code" id="generatedPasskey"></div>
+                <p class="passkey-note">Save this passkey to track your confession status</p>
+            </div>
+            <button class="btn btn-primary modal-close">Continue</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Anonymous Confession</h4>
+                    <p>Share your truth anonymously and connect with others who understand.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#confessions">View Confessions</a></li>
+                        <li><a href="#new-confession">Submit Confession</a></li>
+                        <li><a href="#track">Track Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Anonymous Confession. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="backend.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

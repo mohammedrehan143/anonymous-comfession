@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Anonymous Confession</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .nav {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .filter-group label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .confessions-list {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .confession-item {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .confession-item:last-child {
+            border-bottom: none;
+        }
+        
+        .confession-content {
+            flex: 1;
+        }
+        
+        .confession-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .confession-text {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .confession-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .confession-actions {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-hold {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .priority-badge {
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .priority-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .priority-mid {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .priority-low {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .no-confessions {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Admin Dashboard</h1>
+        <p>Manage confessions and monitor the platform</p>
+    </div>
+    
+    <div class="nav">
+        <div class="nav-links">
+            <a href="blocked-users.html">Blocked Users</a>
+            <a href="#" class="active">Confessions</a>
+        </div>
+        <div>
+            <span id="userInfo"></span>
+            <button class="btn btn-danger" onclick="logout()" style="margin-left: 10px;">Logout</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalConfessions">0</div>
+                <div class="stat-label">Total Confessions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingConfessions">0</div>
+                <div class="stat-label">Pending Review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="approvedConfessions">0</div>
+                <div class="stat-label">Approved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="rejectedConfessions">0</div>
+                <div class="stat-label">Rejected</div>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label>Status:</label>
+                <select id="statusFilter">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="hold">Hold</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Priority:</label>
+                <select id="priorityFilter">
+                    <option value="all">All Priority</option>
+                    <option value="high">High</option>
+                    <option value="mid">Mid</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Search:</label>
+                <input type="text" id="searchInput" placeholder="Search confessions...">
+            </div>
+        </div>
+        
+        <div class="confessions-list">
+            <div id="confessionsList">
+                <!-- Confessions will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allConfessions = [];
+        let filteredConfessions = [];
+        
+        // Load confessions on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is admin
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            if (!currentUser || currentUser.userType !== 'admin') {
+                alert('Access denied. Admin privileges required.');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Show user info
+            document.getElementById('userInfo').textContent = `Welcome, ${currentUser.email}`;
+            
+            loadConfessions();
+            setupFilters();
+        });
+        
+        function loadConfessions() {
+            // Load confessions from localStorage
+            allConfessions = JSON.parse(localStorage.getItem('userConfessions') || '[]');
+            console.log('Loaded confessions:', allConfessions);
+            
+            // Update stats
+            updateStats();
+            
+            // Display confessions
+            displayConfessions();
+        }
+        
+        function updateStats() {
+            const total = allConfessions.length;
+            const pending = allConfessions.filter(c => c.status === 'pending').length;
+            const approved = allConfessions.filter(c => c.status === 'approved').length;
+            const rejected = allConfessions.filter(c => c.status === 'rejected').length;
+            
+            document.getElementById('totalConfessions').textContent = total;
+            document.getElementById('pendingConfessions').textContent = pending;
+            document.getElementById('approvedConfessions').textContent = approved;
+            document.getElementById('rejectedConfessions').textContent = rejected;
+        }
+        
+        function displayConfessions() {
+            const container = document.getElementById('confessionsList');
+            
+            if (filteredConfessions.length === 0) {
+                container.innerHTML = '<div class="no-confessions">No confessions found.</div>';
+                return;
+            }
+            
+            container.innerHTML = filteredConfessions.map(confession => `
+                <div class="confession-item">
+                    <div class="confession-content">
+                        <div class="confession-title">${confession.title}</div>
+                        <div class="confession-text">${confession.text}</div>
+                        <div class="confession-meta">
+                            <span>Passkey: ${confession.passkey}</span>
+                            <span>Priority: <span class="priority-badge priority-${confession.priority}">${confession.priority.toUpperCase()}</span></span>
+                            <span>Status: <span class="status-badge status-${confession.status}">${confession.status.toUpperCase()}</span></span>
+                            <span>Date: ${confession.date}</span>
+                        </div>
+                    </div>
+                    <div class="confession-actions">
+                        <button class="btn btn-success" onclick="updateConfessionStatus(${confession.id}, 'approved')">
+                            Approve
+                        </button>
+                        <button class="btn btn-warning" onclick="updateConfessionStatus(${confession.id}, 'hold')">
+                            Hold
+                        </button>
+                        <button class="btn btn-danger" onclick="updateConfessionStatus(${confession.id}, 'rejected')">
+                            Reject
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function setupFilters() {
+            document.getElementById('statusFilter').addEventListener('change', applyFilters);
+            document.getElementById('priorityFilter').addEventListener('change', applyFilters);
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+        }
+        
+        function applyFilters() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const priorityFilter = document.getElementById('priorityFilter').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            filteredConfessions = allConfessions.filter(confession => {
+                const statusMatch = statusFilter === 'all' || confession.status === statusFilter;
+                const priorityMatch = priorityFilter === 'all' || confession.priority === priorityFilter;
+                const searchMatch = searchTerm === '' || 
+                    confession.title.toLowerCase().includes(searchTerm) ||
+                    confession.text.toLowerCase().includes(searchTerm);
+                
+                return statusMatch && priorityMatch && searchMatch;
+            });
+            
+            displayConfessions();
+        }
+        
+        function updateConfessionStatus(confessionId, newStatus) {
+            const confession = allConfessions.find(c => c.id === confessionId);
+            if (confession) {
+                confession.status = newStatus;
+                localStorage.setItem('userConfessions', JSON.stringify(allConfessions));
+                
+                // Update stats and display
+                updateStats();
+                applyFilters();
+                
+                console.log(`Confession ${confessionId} status updated to ${newStatus}`);
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+        
+        // Initialize filters
+        applyFilters();
+    </script>
+</body>
+</html>

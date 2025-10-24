@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Confession - Anonymous Confession</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-mask"></i>
+                <span>Anonymous Confession</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#confessions" class="nav-link">Confessions</a>
+                <a href="new-confession.html" class="nav-link active">New Confession</a>
+                <a href="index.html#track" class="nav-link">Track</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><b> Your secret is safe with us</b></h1>
+            <p>Your confession will remain completely anonymous. Choose your priority level and submit safely.</p>
+        </div>
+    </section>
+
+    <!-- New Confession Form Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-pen"></i>
+                Submit Your Confession
+            </h2>
+            <p class="section-subtitle">Your identity will remain completely anonymous</p>
+
+            <div class="confession-form-container">
+                <form id="confessionForm" class="confession-form">
+                    <div class="form-group">
+                        <label for="confessionTitle">Confession Title</label>
+                        <input type="text" id="confessionTitle" placeholder="Give your confession a title..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confessionText">Your Confession</label>
+                        <textarea id="confessionText" placeholder="Share your truth here..." rows="6" required></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span>/1000 characters
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Priority Level</label>
+                        <div class="priority-options">
+                            <div class="priority-option" data-priority="low">
+                                <div class="priority-card">
+                                    <i class="fas fa-clock"></i>
+                                    <h3>Low Priority</h3>
+                                    <p>Free submission</p>
+                                    <span class="price">Free</span>
+                                    <div class="priority-features">
+                                        <ul>
+                                            <li>Standard processing time</li>
+                                            <li>Review within 24-48 hours</li>
+                                            <li>No additional cost</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="priority-option" data-priority="mid">
+                                <div class="priority-card">
+                                    <i class="fas fa-star"></i>
+                                    <h3>Mid Priority</h3>
+                                    <p>Faster processing</p>
+                                    <span class="price">$2.99</span>
+                                    <div class="priority-features">
+                                        <ul>
+                                            <li>Priority processing</li>
+                                            <li>Review within 12-24 hours</li>
+                                            <li>Higher visibility</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="priority-option" data-priority="high">
+                                <div class="priority-card">
+                                    <i class="fas fa-crown"></i>
+                                    <h3>High Priority</h3>
+                                    <p>Immediate review</p>
+                                    <span class="price">$9.99</span>
+                                    <div class="priority-features">
+                                        <ul>
+                                            <li>Immediate processing</li>
+                                            <li>Review within 2-6 hours</li>
+                                            <li>Maximum visibility</li>
+                                            <li>Priority support</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="termsCheck" required>
+                            I agree to the <a href="#" class="terms-link">Terms of Service</a> and understand this is anonymous
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Confession
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Payment</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-info">
+                    <div class="payment-summary">
+                        <h4>Payment Summary</h4>
+                        <div class="payment-item">
+                            <span>Confession Priority:</span>
+                            <span id="paymentPriority"></span>
+                        </div>
+                        <div class="payment-item">
+                            <span>Amount:</span>
+                            <span id="paymentAmount"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h4>Payment Method</h4>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="card" checked>
+                                <span class="payment-option-content">
+                                    <i class="fas fa-credit-card"></i>
+                                    Credit/Debit Card
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="paypal">
+                                <span class="payment-option-content">
+                                    <i class="fab fa-paypal"></i>
+                                    PayPal
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="processPayment">Process Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Confession Submitted Successfully!</h3>
+            <p>Your confession has been submitted and is under review.</p>
+            <div class="passkey-display">
+                <label>Your Confession Passkey:</label>
+                <div class="passkey-code" id="generatedPasskey"></div>
+                <p class="passkey-note">Save this passkey to track your confession status</p>
+            </div>
+            <div class="success-actions">
+                <button class="btn btn-primary" onclick="window.location.href='index.html'">Go to Home</button>
+                <button class="btn btn-secondary" onclick="window.location.href='index.html#track'">Track Confession</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Anonymous Confession</h4>
+                    <p>Share your truth anonymously and connect with others who understand.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#confessions">View Confessions</a></li>
+                        <li><a href="index.html#track">Track Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Anonymous Confession. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="backend.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            if (!currentUser) {
+                alert('Please login to submit confessions');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Initialize form functionality
+            initializeConfessionForm();
+        });
+
+        function initializeConfessionForm() {
+            // Priority selection
+            document.querySelectorAll('.priority-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.priority-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+
+            // Character counter
+            const confessionText = document.getElementById('confessionText');
+            const charCount = document.getElementById('charCount');
+            if (confessionText && charCount) {
+                confessionText.addEventListener('input', function() {
+                    const count = this.value.length;
+                    charCount.textContent = count;
+                    if (count > 1000) {
+                        charCount.style.color = '#dc3545';
+                    } else {
+                        charCount.style.color = '#999';
+                    }
+                });
+            }
+
+            // Form submission
+            document.getElementById('confessionForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = document.getElementById('submitBtn');
+                const originalText = submitBtn.innerHTML;
+                
+                // Show loading state
+                submitBtn.innerHTML = '<span class="loading"></span> Submitting...';
+                submitBtn.disabled = true;
+                
+                try {
+                    const title = document.getElementById('confessionTitle').value;
+                    const text = document.getElementById('confessionText').value;
+                    const selectedPriority = document.querySelector('.priority-option.selected');
+                    
+                    if (!selectedPriority) {
+                        alert('Please select a priority level');
+                        return;
+                    }
+                    
+                    const priority = selectedPriority.dataset.priority;
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+                    
+                    // Check for vulgar language
+                    const vulgarDetection = window.app ? window.app.detectVulgarLanguage(text) : { hasVulgarLanguage: false, foundWords: [] };
+                    
+                    if (vulgarDetection.hasVulgarLanguage) {
+                        // Block user for vulgar language
+                        if (window.app) {
+                            window.app.blockUser(currentUser.id, 'Vulgar language detected: ' + vulgarDetection.foundWords.join(', '));
+                        }
+                        alert('Your confession contains inappropriate language and has been rejected. Your account has been blocked. Contact support for assistance.');
+                        return;
+                    }
+                    
+                    // Create confession object
+                    const confession = {
+                        id: Date.now(),
+                        title: title,
+                        text: text,
+                        priority: priority,
+                        passkey: Math.random().toString().slice(2, 12),
+                        date: new Date().toISOString().split('T')[0],
+                        status: 'pending',
+                        userId: currentUser.id,
+                        userEmail: currentUser.email
+                    };
+                    
+                    // Save confession to localStorage
+                    const userConfessions = JSON.parse(localStorage.getItem('userConfessions') || '[]');
+                    userConfessions.push(confession);
+                    localStorage.setItem('userConfessions', JSON.stringify(userConfessions));
+                    
+                    // Show success modal
+                    document.getElementById('generatedPasskey').textContent = confession.passkey;
+                    document.getElementById('successModal').classList.add('show');
+                    document.getElementById('successModal').style.display = 'flex';
+                    
+                    // Reset form
+                    document.getElementById('confessionForm').reset();
+                    document.getElementById('charCount').textContent = '0';
+                    document.querySelectorAll('.priority-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    console.log('Confession saved to localStorage');
+                    
+                } catch (error) {
+                    console.error('Confession submission error:', error);
+                    alert('An error occurred during submission. Please try again.');
+                } finally {
+                    // Reset button state
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // Password toggle
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+        
+        // Modal close
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.classList.remove('show');
+                    modal.style.display = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
